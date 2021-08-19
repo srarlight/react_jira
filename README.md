@@ -1,46 +1,98 @@
-# Getting Started with Create React App
+# React17 + React Hook + TS4 + json-server
+## 创建TS项目
+npx create-react-app [name] --template typescript
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 运行项目
+npm start
 
-## Available Scripts
-1
-In the project directory, you can run:
+## 配置git commit提交规范
 
-### `yarn start`
+是否符合规范，如果不符合则不允许提交
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1、[安装Prettier](https://prettier.io/docs/en/install.html)
+-  `npm install --save-dev --save-exact prettier`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+-  然后，创建一个空的配置文件，以使编辑器和其他工具知道您正在使用Prettier：`echo {}> .prettierrc.json`
 
-### `yarn test`
+-  接下来，创建一个.prettierignore文件，让Prettier CLI和编辑器知道哪些文件不格式化。这是一个例子：
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```js
+   # Ignore artifacts:
+    build
+    coverage
+    ```
+2、[Pre-commit Hook](https://prettier.io/docs/en/precommit.html)
 
-### `yarn build`
+> 注意使用husky之前，必须先将代码放到git 仓库中，否则本地没有.git文件，就没有地方去继承钩子了。
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+当您想与Prettier一起使用其他代码质量工具（例如ESLint，Stylelint等）或需要支持部分暂存文件（git add --patch）时很有用。
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+devDependencies在继续操作之前，请确保已安装Prettier并在其中。
+```js
+npx mrm lint-staged
+```
+这将安装husky和lint-staged，然后在项目的配置中添加一个配置，该配置package.json将在预提交挂钩中自动格式化支持的文件。
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+pageage.json配置
+```js
+"lint-staged": {
+    "*.{js,css,md,ts,tsx}": "prettier --write"
+  }
+```
+3、[安装eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)
 
-### `yarn eject`
+- `npm install --save-dev eslint-config-prettier`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- pageage.json配置
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  ```js
+  "eslintConfig": {
+      "extends": [
+        "react-app",
+        "react-app/jest",
+        "prettier" // 增加prettier，覆盖之前一部分规则
+      ]
+    },
+  ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+4、[安装commitlint](https://github.com/conventional-changelog/commitlint) 、[文档地址](https://commitlint.js.org/#/guides-local-setup)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- `npm install --save-dev @commitlint/{cli,config-conventional}`
 
-## Learn More
+- 控制台运行 `echo "module.exports = {extends: ['@commitlint/config-conventional']};" > commitlint.config.js`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [commitlint提交规则：@commitlint/config-conventional](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional)
+  ```js
+  // 提交规范
+  [
+    'build',
+    'chore', // 构建过程或辅助工具的变动
+    'ci',
+    'docs', // 文档（documentation）
+    'feat', // 新功能（feature）
+    'fix', // 修补bug
+    'perf',
+    'refactor', // 重构（即不是新增功能，也不是修改bug的代码变动）
+    'revert',
+    'style', // 格式（不影响代码运行的变动）
+    'test' // 增加测试
+  ];
+  echo "foo: some message" # fails
+  echo "fix: some message" # passes
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  // 例如增加了commitlint：
+  ci: add commitlint
+  
+  ```
+
+5、[安装json-server](https://github.com/typicode/json-server)
+`npm i json-server -g`
+
+完全遵循reset api风格，可在postman里做增删改查
+- 根目录新建一个__json-server-mock__/db.json
+- 启动json-server `json-server --watch db.json`
+- package.json 增加一项script：
+
+  `"json-server": "json-server __json-server-mock__/db.json --watch"`
+
+  执行`npm run json-server`启动试试
