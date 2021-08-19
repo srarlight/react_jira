@@ -50,13 +50,7 @@
     "lint-staged": ">=10",
     "prettier": "2.3.2"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "test"
-    }
-  },
   "lint-staged": {
-    "*.{js,css,md,ts,tsx}": "prettier --write",
+    "*.{js,css,ts,tsx,md}": "prettier --write"
   }
 }
