@@ -12,11 +12,7 @@ export const cleanObject = (object: any) => {
   });
   return result;
 };
-export const useMounted = (callBack: () => void) => {
-  useEffect(() => {
-    callBack();
-  }, []);
-};
+
 export const getSessionStorage = (value: string) => {
   return sessionStorage.getItem(value);
 };

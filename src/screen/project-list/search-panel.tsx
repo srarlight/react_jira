@@ -1,4 +1,20 @@
-export const SearchPanel = ({users, params, setParams }) => {
+import React from "react";
+
+export interface User {
+  id: number,
+  name: string,
+
+}
+interface IProps {
+  users:User[];
+  params : {
+    name:string,
+    personId:string
+  };
+  setParams : (value:any)=>void;
+}
+
+export const SearchPanel:React.FC<IProps> = ({users,params,setParams}) => {
   return <div>
     <input value={params.name} onChange={(ev) => {
       setParams({

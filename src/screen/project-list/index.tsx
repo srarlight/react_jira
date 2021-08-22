@@ -1,17 +1,22 @@
 import { List } from "./list";
 import { SearchPanel } from "./search-panel";
 import {  useState } from "react";
-import { cleanObject, useMounted } from "../../util/index";
+import { cleanObject } from "../../util";
 import { getList, getUsers } from "../../request/api";
-import { useDebounce } from "react-use";
+import {useDebounce, useMount} from "react-use";
+
+export interface IUser {
+  id:string;
+  name:string;
+}
 
 export const ProjectList = () => {
   const [params, setParams] = useState({
     name: "",
     personId: ""
   });
-  const [users, setUsers] = useState([]);
-  const [list ,setList] = useState([])
+  const [users, setUsers] = useState<any>([]);
+  const [list ,setList] = useState<any>([]);
   useDebounce(() => {
     getList(cleanObject(params)).then(res => {
       setList(res)
@@ -19,13 +24,14 @@ export const ProjectList = () => {
   } ,200,
     [params]);
 
-  useMounted((value) => {
-    getUsers().then(res => {
-      setUsers(res);
-    });
+  useMount(() => {
+    getUsers().then(async res=> {
+     await setUsers(res)
+    })
   });
+
   return <div>
     <SearchPanel users={users} params={params} setParams={setParams} />
-    <List users={users} list={list} setList={setList}/>
+    <List users={users} list={list} />
   </div>;
 };
