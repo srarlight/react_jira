@@ -10,9 +10,13 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "antd": "^4.16.12",
+    "axios": "^0.21.1",
+    "qs": "^6.10.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
+    "react-use": "^17.2.4",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
@@ -21,7 +25,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "json-server": "json-server __json-server-mock__/db.json --watch --port 3001"
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +50,7 @@
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
+    "@types/qs": "^6.9.7",
     "eslint-config-prettier": "^8.3.0",
     "husky": ">=6",
     "lint-staged": ">=10",
@@ -58,5 +64,6 @@
   },
   "lint-staged": {
     "*.{js,css,ts,tsx,md}": "prettier --write"
-  }
+  },
+  "proxy": "http://localhost:3001"
 }
