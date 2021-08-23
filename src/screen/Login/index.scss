@@ -1,0 +1,67 @@
+@import '../../style/var.less';
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  background: #000 url('../../assets/login-bg.png') no-repeat center;
+  color: #a3a3a3;
+  font-size: 16px;
+
+  .login-panel {
+    width: 856px;
+
+    .login-header {
+      margin-bottom: 36px;
+      position: relative;
+      padding: 0 4px;
+
+      .slogen {
+        margin-left: 10px;
+        margin-top: -8px;
+      }
+
+      .welcome {
+        position: absolute;
+        right: 4px;
+      }
+
+      .userGuide {
+        height: 30px;
+        position: absolute;
+        right: 4px;
+        bottom: 5px;
+        cursor: pointer;
+      }
+    }
+
+    .login-content {
+      display: flex;
+      background: #fff;
+      border-radius: 8px;
+
+      .ad {
+        width: 338px;
+        margin: 10px;
+
+        img {
+          width: 100%;
+          display: inline-block;
+        }
+      }
+
+      .login-box {
+        flex: 1;
+        padding: 10px 46px 0 36px;
+      }
+    }
+  }
+
+  .copy-right {
+    position: fixed;
+    bottom: 24px;
+    font-size: 14px;
+    color: #fff;
+  }
+}

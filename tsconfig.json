@@ -19,7 +19,22 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": {
+      "~src/*": ["./*"],
+      "~api/*": ["api/*"],
+      "~config/*": ["config/*"],
+      "assets/*": ["assets/*"],
+      "~components/*": ["components/*"],
+      "~pages/*": ["pages/*"],
+      "~styles/*": ["styles/*"],
+      "~utils/*": ["utils/*"],
+      "~combAnalysis/*": ["pages/combAnalysis/*"],
+      "~currencyAnalysis/*": ["pages/customMade/combAnalysis/*"],
+      "~permission/*": ["pages/permission/*"],
+      "~riskManage/*": ["pages/riskManage/*"],
+      "~researchDriven": ["pages/researchDriven/*"]
+    }
   },
   "include": [
     "src"

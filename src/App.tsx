@@ -1,10 +1,13 @@
 import React from "react";
+import "./style/reset.css";
 import "./App.scss";
-import { SiderDemo } from "./screen/SiderDemo";
+
+import { Home } from "./screen/Home";
+import Login from "./screen/Login";
 function App() {
   return (
     <div className="App">
-      <SiderDemo />
+      <Login></Login>
     </div>
   );
 }
