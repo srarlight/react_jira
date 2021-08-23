@@ -1,6 +1,6 @@
 import React from "react";
-import './App.css'
-import {SiderDemo} from "./screen/SiderDemo";
+import "./App.scss";
+import { SiderDemo } from "./screen/SiderDemo";
 function App() {
   return (
     <div className="App">
