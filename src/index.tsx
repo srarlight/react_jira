@@ -1,12 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { HashRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { AppContainer } from "react-hot-loader";
 import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import zhCN from "antd/es/locale/zh_CN";
 
+import { ConfigProvider, Layout, Spin, message } from "antd";
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AppContainer>
+      <ConfigProvider locale={zhCN}>
+        <Router>
+          <Layout>{/*<RouterView routes={routes} />*/}</Layout>
+        </Router>
+      </ConfigProvider>
+    </AppContainer>
   </React.StrictMode>,
   document.getElementById("root")
 );

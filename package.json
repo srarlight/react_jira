@@ -58,6 +58,7 @@
     "react-app-polyfill": "^2.0.0",
     "react-dev-utils": "^11.0.3",
     "react-dom": "^17.0.2",
+    "react-hot-loader": "^4.13.0",
     "react-refresh": "^0.8.3",
     "react-use": "^17.2.4",
     "resolve-url-loader": "^3.1.2",
@@ -121,7 +122,7 @@
   "lint-staged": {
     "*.{js,css,ts,tsx,md}": "prettier --write"
   },
-  "proxy": "http://localhost:3001",
+  "proxy": "http://localhost:1337",
   "jest": {
     "roots": [
       "<rootDir>/src"

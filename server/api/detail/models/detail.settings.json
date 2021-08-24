@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "details",
+  "info": {
+    "name": "detail"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "text"
+    },
+    "age": {
+      "type": "biginteger"
+    }
+  }
+}

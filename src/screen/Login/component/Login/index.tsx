@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Form, Button, Input } from "antd";
+import { Form, Button, Input, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 import "./index.scss";
@@ -51,7 +51,6 @@ const Login: React.FC = () => {
           placeholder="账号"
         />
       </Form.Item>
-
       <Form.Item
         name="loginPwd"
         rules={[{ required: true, message: "请输入密码" }]}
@@ -63,6 +62,13 @@ const Login: React.FC = () => {
         />
       </Form.Item>
       <p className="err-msg">{errorMsg}</p>
+      {/*<Form.Item name="remember" valuePropName="checked" noStyle>*/}
+      {/*  <Checkbox>Remember me</Checkbox>*/}
+      {/*</Form.Item>*/}
+      <a className="login-form-forgot" href="">
+        忘记密码？
+      </a>
+      Or <a href="">去注册!</a>
       <Form.Item className="btn-form-item">
         <Button className="btn-login" htmlType="submit">
           登录
