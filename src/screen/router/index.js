@@ -1,6 +1,16 @@
-import { Home } from "~src/screen/Home";
+import { Home } from "../../screen/Home/index";
 import Login from "../Login";
+import Transit from "../Transit";
+
 export const routes = [
+  {
+    path: "/",
+    code: "",
+    component: Transit,
+    meta: {
+      name: "中转页面",
+    },
+  },
   {
     path: "/home",
     code: "",
@@ -16,6 +26,14 @@ export const routes = [
     component: Login,
     meta: {
       name: "登录",
+    },
+  },
+  {
+    path: "/resister",
+    code: "",
+    component: Login,
+    meta: {
+      name: "注册",
     },
   },
 ];

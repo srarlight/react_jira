@@ -26,7 +26,7 @@ const ModuleNotFoundPlugin = require("react-dev-utils/ModuleNotFoundPlugin");
 const ForkTsCheckerWebpackPlugin = require("react-dev-utils/ForkTsCheckerWebpackPlugin");
 const typescriptFormatter = require("react-dev-utils/typescriptFormatter");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-
+const isDev = process.env.NODE_ENV === "development";
 const postcssNormalize = require("postcss-normalize");
 
 const appPackageJson = require(paths.appPackageJson);
@@ -535,7 +535,37 @@ module.exports = function (webpackEnv) {
                 "sass-loader"
               ),
             },
-
+            {
+              test: /\.(less|css)$/,
+              use: [
+                isDev
+                  ? "style-loader"
+                  : {
+                      loader: MiniCssExtractPlugin.loader,
+                      options: {
+                        publicPath: "../",
+                      },
+                    },
+                "css-loader",
+                {
+                  loader: "less-loader",
+                  options: {
+                    lessOptions: {
+                      modifyVars: {
+                        // antd 主题定制
+                        "@menu-highlight-color": "#A30001",
+                        "@menu-item-active-danger-bg": "#fff",
+                        "@menu-item-active-bg": "#fff",
+                        "@menu-dark-item-active-bg": "#fff",
+                        dark: true,
+                        compact: true,
+                      },
+                      javascriptEnabled: true,
+                    },
+                  },
+                },
+              ],
+            },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
             // In production, they would get copied to the `build` folder.

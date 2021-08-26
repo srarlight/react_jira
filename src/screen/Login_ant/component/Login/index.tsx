@@ -9,8 +9,11 @@ interface ILoginData {
   loginName: string;
   loginPwd: string;
 }
+interface LoginProp {
+  path: any;
+}
 
-const Login: React.FC = () => {
+const Login: React.FC<LoginProp> = ({ path }) => {
   // 错误信息
   const [errorMsg, setErrorMsg] = useState("");
   // 路由操作
@@ -19,20 +22,7 @@ const Login: React.FC = () => {
    * 处理登录
    * @param values
    */
-  const handleSubmit = (values: any) => {
-    // post_Login(values)
-    //   .then(res => {
-    //     InitMenuState(null);
-    //     InitCombineData(null);
-    //     // 处理登录数据
-    //     helper.loginProcessingData(res);
-    //     // 跳转至首页
-    //     history.replace('/home');
-    //   })
-    //   .catch(err => {
-    //     console.info(err);
-    //   });
-  };
+  const handleSubmit = (values: any) => {};
 
   return (
     <Form
@@ -48,7 +38,7 @@ const Login: React.FC = () => {
       >
         <Input
           prefix={<UserOutlined className="form-icon" />}
-          placeholder="账号"
+          placeholder="账号/邮箱"
         />
       </Form.Item>
       <Form.Item
@@ -62,16 +52,17 @@ const Login: React.FC = () => {
         />
       </Form.Item>
       <p className="err-msg">{errorMsg}</p>
-      {/*<Form.Item name="remember" valuePropName="checked" noStyle>*/}
-      {/*  <Checkbox>Remember me</Checkbox>*/}
-      {/*</Form.Item>*/}
-      <a className="login-form-forgot" href="">
-        忘记密码？
-      </a>
-      Or <a href="">去注册!</a>
+      {/*<a className="login-form-forgot" href="">*/}
+      {/*  忘记密码？*/}
+      {/*</a>*/}
+      {path === "/login" ? (
+        <a onClick={() => history.push("/resister")}>去注册!</a>
+      ) : (
+        <a onClick={() => history.push("/login")}>去登陆</a>
+      )}
       <Form.Item className="btn-form-item">
         <Button className="btn-login" htmlType="submit">
-          登录
+          {path === "/login" ? "登录" : "注册"}
         </Button>
       </Form.Item>
     </Form>
