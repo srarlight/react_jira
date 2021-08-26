@@ -16,3 +16,5 @@ export const getList = (info:IListInfo) =>
     params: info,
   });
 export const getUsers = () => service.get("/users");
+export const register = (value:any) => service.post("/auth/local/register",value);
+export const sendEmail = (data:any) => service.post("/email",data);

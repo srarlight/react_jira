@@ -4,46 +4,94 @@ import axios, { AxiosResponse } from "axios";
 import QS from "qs";
 //antd的message提示组件，大家可根据自己的ui组件更改。
 import { message } from "antd";
-
+import jsSHA from 'jssha';
 //保存环境变量
 const isPrd = process.env.NODE_ENV === "production";
-
+const isAuthRequest = (url: string) => {
+    return url.startsWith('/auth/local/register');
+};
 //区分开发环境还是生产环境基础URL
 export const baseUrl = isPrd
   ? "https://www.production.com"
-  : "http://localhost:3001";
+  : "http://localhost:1337";
 
 //设置axios基础路径
 const service = axios.create({
   baseURL: baseUrl,
 });
 
+// // 请求拦截器
+// service.interceptors.request.use((config:any) => {
+//     // 每次发送请求之前本地存储中是否存在token，也可以通过Redux这里只演示通过本地拿到token
+//     // 如果存在，则统一在http请求的header都加上token，这样后台根据token判断你的登录情况
+//     // 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断
+//     const token = window.localStorage.getItem("userToken") || window.sessionStorage.getItem("userToken");
+//     const {headers, url = ''} = config;
+//     const {data} = config;
+//         if (isAuthRequest(url)) {
+//             // 判断是否为登录注册接口，非登录接口添加验签
+//             if (url.endsWith('login')) {
+//                 let hash = data.loginPwd;
+//                 const shaObj = new jsSHA('SHA-256', 'TEXT');
+//                 shaObj.update(hash);
+//                 hash = shaObj.getHash('HEX');
+//                 config.data = {
+//                     ...config.data,
+//                     loginPwd: hash
+//                 };
+//             } else {
+//                 // const tokenId = getSessionData('tokenId');
+//                 // const timestamp = getTimestamp();
+//                 // const base64ed = Base64.stringify(Utf8.parse(JSON.stringify(data)));
+//                 // const assesign = base64ed + CONFIG.appKey + timestamp + tokenId;
+//                 // const sign = Md5(assesign).toString();
+//                 // config.data = {
+//                 //     sysType: CONFIG.sysType,
+//                 //     appKey: CONFIG.appKey,
+//                 //     cloudId: CONFIG.cloudId,
+//                 //     timestamp,
+//                 //     tokenId,
+//                 //     sign,
+//                 //     data: config.data
+//                 // };
+//             }
+//             //设置请求头
+//             config.headers = {
+//                 "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+//             };
+//             //序列化请求参数，不然post请求参数后台接收不正常
+//             config.data = QS.stringify(config.data);
+//             return config;
+//         }
+// }, (error) => {
+//     return error;
+//   }
+// );
 // 请求拦截器
 service.interceptors.request.use(
-  (config) => {
-    // 每次发送请求之前本地存储中是否存在token，也可以通过Redux这里只演示通过本地拿到token
-    // 如果存在，则统一在http请求的header都加上token，这样后台根据token判断你的登录情况
-    // 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断
-    const token =
-      window.localStorage.getItem("userToken") ||
-      window.sessionStorage.getItem("userToken");
-    //在每次的请求中添加token
-    config.data = Object.assign({}, config.data, {
-      token: token,
-    });
-    //设置请求头
-    config.headers = {
-      "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-    };
-    //序列化请求参数，不然post请求参数后台接收不正常
-    config.data = QS.stringify(config.data);
-    return config;
-  },
-  (error) => {
-    return error;
-  }
+    (config) => {
+        // 每次发送请求之前本地存储中是否存在token，也可以通过Redux这里只演示通过本地拿到token
+        // 如果存在，则统一在http请求的header都加上token，这样后台根据token判断你的登录情况
+        // 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断
+        const token =
+            window.localStorage.getItem("userToken") ||
+            window.sessionStorage.getItem("userToken");
+        //在每次的请求中添加token
+        config.data = Object.assign({}, config.data, {
+            token: token,
+        });
+        //设置请求头
+        config.headers = {
+            "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+        };
+        //序列化请求参数，不然post请求参数后台接收不正常
+        config.data = QS.stringify(config.data);
+        return config;
+    },
+    (error) => {
+        return error;
+    }
 );
-
 // 响应拦截器
 service.interceptors.response.use((response: AxiosResponse) => {
   //根据返回不同的状态码做不同的事情

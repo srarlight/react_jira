@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { HashRouter as Router, Route, Link, Switch } from "react-router-dom";
-import { AppContainer } from "react-hot-loader";
 import { routes } from "./screen/router";
 import "./style/reset.css";
 import "./index.scss";

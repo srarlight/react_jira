@@ -1,5 +1,6 @@
 import { Home } from "../../screen/Home/index";
 import Login from "../Login";
+import Register from "../Register";
 import Transit from "../Transit";
 
 export const routes = [
@@ -31,7 +32,7 @@ export const routes = [
   {
     path: "/resister",
     code: "",
-    component: Login,
+    component:Register,
     meta: {
       name: "注册",
     },

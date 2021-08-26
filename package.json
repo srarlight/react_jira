@@ -44,6 +44,7 @@
     "jest-circus": "26.6.0",
     "jest-resolve": "26.6.0",
     "jest-watch-typeahead": "0.6.1",
+    "jssha": "^3.2.0",
     "less": "^4.1.1",
     "mini-css-extract-plugin": "0.11.3",
     "node-sass": "^6.0.1",
@@ -84,8 +85,7 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest",
-      "prettier"
+      "react-app/jest"
     ]
   },
   "browserslist": {
@@ -106,22 +106,10 @@
     "@types/qs": "^6.9.7",
     "@types/react-router-dom": "^5.1.8",
     "eslint-config-prettier": "^8.3.0",
-    "husky": ">=6",
     "json-server": "^0.16.3",
     "less-loader": "^10.0.1",
-    "lint-staged": ">=10",
-    "prettier": "2.3.2",
     "react-router-dom": "^5.2.0",
     "resolve": "^1.20.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
-  "lint-staged": {
-    "*.{js,css,ts,tsx,md}": "prettier --write"
   },
   "proxy": "http://localhost:1337",
   "jest": {
