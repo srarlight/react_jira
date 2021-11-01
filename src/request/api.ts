@@ -1,4 +1,5 @@
 import service from "./index";
+import axios, { AxiosResponse } from "axios";
 export interface IListInfo {
     name: string,
     personId: string
@@ -16,5 +17,22 @@ export const getList = (info:IListInfo) =>
     params: info,
   });
 export const getUsers = () => service.get("/users");
-export const register = (value:any) => service.post("/auth/local/register",value);
+export const Login = (data:{userName:string,password:string}) => fetch('/fanpai/users/login',{
+    method:'POST',
+    headers:{
+        'Content-Type':'application/json'
+    },
+    body:JSON.stringify(data)
+}).then(response=>{
+    if(response.ok){
+        return response.json();
+    }else {
+        return Promise.reject(data)
+    }
+})
+export const register = (value:any) => service.post("/users",value);
 export const sendEmail = (data:any) => service.post("/email",data);
+//路由跳转时校验权限
+export const validate=()=> service.get('/users/me')
+//查询该角色有哪些权限
+export const getUserPermissions=(id:number)=> service.get(`/users-permissions/roles/${id}`)
