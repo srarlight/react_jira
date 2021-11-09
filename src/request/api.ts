@@ -1,5 +1,5 @@
 import service from "./index";
-import axios, { AxiosResponse } from "axios";
+const apiUrl = process.env.REACT_APP_API_URL;
 export interface IListInfo {
     name: string,
     personId: string
@@ -17,7 +17,7 @@ export const getList = (info:IListInfo) =>
     params: info,
   });
 export const getUsers = () => service.get("/users");
-export const Login = (data:{userName:string,password:string}) => fetch('/fanpai/users/login',{
+export const Login = (data:{userName:string,password:string}) => fetch(`${apiUrl}/login`,{
     method:'POST',
     headers:{
         'Content-Type':'application/json'

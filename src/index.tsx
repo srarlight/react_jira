@@ -1,15 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import App from './App'
 import "./style/reset.css";
 import "./index.scss";
 import reportWebVitals from "./reportWebVitals";
-import { LoginForm1 } from "./screen/test";
-import { AppProviders } from "./context";
+import {loadDevTools} from 'jira-dev-tool'
+// import "antd/dist/antd.less";
+import {AppProviders} from "./context";
 
-ReactDOM.render(
-  <AppProviders>
-    <LoginForm1 />
-  </AppProviders>,
-  document.getElementById("root")
-);
+loadDevTools(()=>{
+    ReactDOM.render(
+        <React.StrictMode>
+            <AppProviders>
+                <App/>
+            </AppProviders>
+        </React.StrictMode>,
+        document.getElementById("root")
+    );
+})
+
 reportWebVitals();

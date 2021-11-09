@@ -1,3 +1,4 @@
+import React from "react";
 import { AuthProvider } from "./auth-context";
 import { ReactNode } from "react";
 
